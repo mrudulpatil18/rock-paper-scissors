@@ -1,13 +1,28 @@
 let playerScore = 0;
 let computerScore = 0;
+const winner = document.querySelector('.winner');
 
 function getComputerChoice(){
     const choice = ["Rock", "Paper", "Scissor"];
     return choice[Math.floor(Math.random() * 3)];
 }
 
-function playRound(playerSelection, computerSelection){
+function playRound(playerSelection){
+    winner.textContent = "";
+    if(computerScore == 5){
+        winner.textContent = "COMPUTER WINS !!";
+        setTimeout(20);
+        computerScore = 0;
+        playerScore = 0;
+    }
+    else if(playerScore == 5){
+        winner.textContent = "PLAYER WINS !!";
+        setTimeout(20);
+        computerScore = 0;
+        playerScore = 0;
+    }
     playerSelection = playerSelection.toUpperCase();
+    let computerSelection = getComputerChoice();
     computerSelection = computerSelection.toUpperCase();
     if(playerSelection == "ROCK" && computerSelection == "PAPER"){
         computerScore++;
@@ -44,19 +59,40 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
-function game(name){
-    for(let i = 0; i < 5; i++){
-        let playerSelection = prompt("Choose from Rock , Paper, Scissors !")
-        let computerSelection = getComputerChoice();
-        console.log("hey "+ name + " " + playRound(playerSelection, computerSelection));
-    }
-    console.log("Your Score: " + playerScore)
-    console.log("Computer Score: " + computerScore)
+const rock = document.querySelector('.ROCK');
+const paper = document.querySelector('.PAPER');
+const scissor = document.querySelector('.Scissor');
+const result = document.querySelector('.result');
+const player = document.querySelector('.player');
+const comp = document.querySelector('.comp');
+
+
+function updateScore(){
+    player.textContent = "Player Score : " + playerScore;
+    comp.textContent = "Computer Score : " + computerScore;
 }
 
+rock.addEventListener('click', function(){
+    console.log(playRound("ROCK"));
+    result.textContent = playRound("ROCK");
+    updateScore();
+});
+paper.addEventListener('click', function(){
+    console.log(playRound("paper"));
+    result.textContent = playRound("paper");
+    updateScore();
+});
+scissor.addEventListener('click', function(){
+    console.log(playRound("scissor"));
+    result.textContent = playRound("scissor");
+    updateScore();
+});
 
-let name = prompt("Your Name ??")
-console.log("Hey "+name)
-game(name)
+
+
+
+//et name = prompt("Your Name ??")
+//console.log("Hey "+name)
+//game(name)
 
 
